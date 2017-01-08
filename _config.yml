@@ -8,7 +8,7 @@
 # Site settings
 title: Alejandro Marín
 description: Personal "notebook" of my learning path.
-baseurl: "/" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url: alejandrome.github.io # the base hostname & protocol for your site
 twitter_username: AlejandroM_E
 github_username:  AlejandroME
