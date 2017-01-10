@@ -138,7 +138,7 @@ libraryDependencies ++= Seq(
 
 Please note that this is a simplified version of the multiple dependencies in different lines. Also note that if we want choose this option we have to use the operator `++=` (assign an entire `Seq` of objects to the Setting) instead of `+=` (assign an object to the `Seq`).  
 
-As earlier, if you feel curious about these functions, this is the signature:
+As earlier, if you feel curious about these functions, this is the signature for both of them:
 
 ```scala
 final def +=[U](v: U)(implicit a: Append.Value[T, U]): Setting[T] = macro std.TaskMacro.settingAppend1Impl[T, U]
