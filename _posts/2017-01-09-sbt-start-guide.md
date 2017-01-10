@@ -1,6 +1,6 @@
 ---
 layout: post
-title: sbt Beyond the Defaults: Part I
+title: "sbt Beyond the Defaults: Part I"
 date: 2017-01-09 20:30:00-0500
 categories: ["scala", "sbt", "functional programming"]
 ---
@@ -18,7 +18,7 @@ For the vast majority of the Scala newcomers `sbt` is one of the greatest challe
 ## This isn't a criticism post, so let's get started!
 
 I've talked about a little bit of history and the actual drawbacks. Having a technical debt with myself about this topic, I'm motivated to write a series of posts (I don't know exactly how many of them) trying to explain my learning path about `sbt` in a straightforward way.
- 
+
 **But, before that, I have to make this disclaimer:**
 
 >**English is NOT my first language:** but I've decided to let the shame apart and write in English because of the reasons noted [here](/about). If you find typos or grammar mistakes I appreciate if you can note those in the comments. With this, I improve my writing skills and also improve the content of the posts... :)
@@ -79,7 +79,7 @@ import Process._
 import Keys._
 ```
 
-With this, all the sbt keys are available for our builds. In this ~~naive~~ straightforward example `name`, `version`, `scalaVersion` and `libraryDependencies` are not explicitly useful for us (but for `sbt`!) because we haven't defined any task that use this settings yet. 
+With this, all the sbt keys are available for our builds. In this ~~naive~~ straightforward example `name`, `version`, `scalaVersion` and `libraryDependencies` are not explicitly useful for us (but for `sbt`!) because we haven't defined any task that use this settings yet.
 
 #### Why a simple assign statement (`=`) doesn't work and instead you have to do it with `:=`?
 
