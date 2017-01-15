@@ -13,7 +13,7 @@ For the vast majority of the Scala newcomers `sbt` is one of the greatest challe
 * **The API docs need some work:** You won't find detailed information in the [API Docs](http://www.scala-sbt.org/0.13/api/#package) and that's a drawback because it makes the learning curve way more steep.
 * **Lack of *newbie* resources:** Well, *sort of*. There are [very](https://www.youtube.com/watch?v=V2rl62CZPVc) [good](https://www.youtube.com/watch?v=X6CnYQDL9Eg) [talks](https://www.youtube.com/watch?v=8aCLutYgRLA) about `sbt` but (and this is a personal opinion) none of these are focused for novices. Yeah, sure you need to understand `Scopes`, `Keys` and the concepts around the tool, but how do you focus the knowledge in a *step-by-step* manner to ease the process for newcomers? That's the point of writing this series (and I hope to achieve that).
 
-[You'll see criticism](http://dimafeng.com/2017/01/04/sbt/) [around](https://www.reddit.com/r/scala/comments/5a6muj/sbt_makes_me_want_to_give_up_scala/) [the tool](http://imranrashid.com/posts/scala-wrong/), but the idea here is to show that it's possible to create a simple *Getting Started* guide for understand the basics and then, if you like, continue your learning process based on the official documentation about `sbt`.
+[You'll see criticism](http://dimafeng.com/2017/01/04/sbt/) [around](https://www.reddit.com/r/scala/comments/5a6muj/sbt_makes_me_want_to_give_up_scala/) [the tool](http://imranrashid.com/posts/scala-wrong/), but the idea here is to show that it's possible to create a simple *Getting Started* guide to understand the basics and then, if you like, continue your learning process based on the official documentation about `sbt`.
 
 ## This isn't a criticism post, so let's get started!
 
@@ -43,7 +43,7 @@ In our case, `sbt` defines a Map of keys that describes all the possible setting
 
 Unfortunately, all available keys are not in the docs but it can be seen [here](https://github.com/sbt/sbt/blob/1.0.x/main/src/main/scala/sbt/Keys.scala) with its description. Also you can define your own keys but for the sake of brevety this topic will be approached in other chapters.
 
-This is the very general definition of a Setting and we'll explain it in depth in subsequent chapters.
+This is the very general definition of a Setting and i'm going to explain it in depth in subsequent chapters.
 
 
 ## About "signs" and keywords
@@ -71,7 +71,7 @@ Let's start by saying that we're seeing one of two possible ways to define our b
 
 #### Why  `name`, `version`, `scalaVersion` and `libraryDependencies` are keywords?
 
-Remember our brief explanation about Settings? Well. here is the answer: **these keywords are settings!** In our build definition (`.sbt` build style) the classes and objects that sbt needs to work are automatically imported, so you don't need to explicitly import them (thing that you have to do with the `.scala` build style). The implied imports in a `build.sbt` file are:
+Remember our brief explanation about Settings? Well, here is the answer: **these keywords are settings!** In our build definition (`.sbt` build style) the classes and objects that sbt needs to work are automatically imported, so you don't need to explicitly import them (thing that you have to do with the `.scala` build style). The implied imports in a `build.sbt` file are:
 
 ```scala
 import sbt._
@@ -154,4 +154,4 @@ This is the first post of the **`sbt` beyond the defaults** series. I tried to k
 
 Here we've talked about the general impression that `sbt` has among developers, its general critics and then we've started to grasp some very basic definitions (like the `SettingKey` map that we'll see in detail in the next post). Then, we've looked a very simple build definition, explaining the ***magic*** syntax around it in detail.
 
-It seems like a very basic approach to this topic but i think that it's neccesary to explain this straightforward example to move on with more detailed (but basic) aspects of `sbt`.
+It seems like a very basic approach to this topic but I think that it's neccesary to explain this straightforward example to move on with more detailed (but basic) aspects of `sbt`.
