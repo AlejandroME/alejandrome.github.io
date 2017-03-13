@@ -136,7 +136,7 @@ Sounds simple (and the book says that is a _classic distributed computing proble
 
 > The lesson (of the stated problem) is that, in a world of incomplete information, trust can help you or harm you, but it's a gamble. The challenge in information science is to determine agreement based only on information that an agent can promise itself.
 
-Sounds like the CAP Theorem.
+Sounds like what Paxos's (or some other consensus algorithm) aim.
 
 ## Continuous Delivery
 
@@ -149,3 +149,5 @@ This post is more like a personal abstraction of the core concepts that I unders
 If you see a _misconception_ about things that I have said here, please leave your comments.
 
 Thanks for reading!
+
+**UPDATE:** [Yuji Kiriki](https://twitter.com/ykiriki) pointed out a mistake when I said that consensus sounded like the CAP theorem. Clearly I was confused at that point and it was fixed.
