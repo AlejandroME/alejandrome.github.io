@@ -33,7 +33,7 @@ Changing that set of tasks by a promise approach looks like this:
 
 What can you see? Is the first approach clearer than this or is the other way around?
 
-Note that in the promise formulation all the statements has a clearer and _measurable_ outcome. Also, when you have a defined vision of what you want that makes you _predictable_ and the results of your promises are _reliable_, _repeatable_ and _available_.
+Note that in the promise formulation all the statements have a clearer and _measurable_ outcome. Also, when you have a defined vision of what you want that makes you _predictable_ and the results of your promises are _reliable_, _repeatable_ and _available_.
 
 From the book:
 
@@ -47,7 +47,7 @@ Makes sense?
 
 But, why am I talking about contracts? Well, from what I understood throughout the book, thinking in promises is not only about draft statements _à la promise way_ but reengineering how systems work in a _cooperatively_ way. 
 
-One of the things that I can keep comparing is the microservices approach, and more generally, the approach of some service that offers you (as a consumer) some capabilities that, as you would expect, produces predictable outcomes ([hello, FP concepts!](https://en.wikipedia.org/wiki/Functional_programming)). For example, if there is a microservice that offers you an API for managing a customer database (CRUD operations), you would expect _a contract_, that is, what is the structure that you have to give to the API for performing one of these operations, what is the structure that the service will use for answer your petition And much better: how do you describe this workflow as promise statements? Try to think how can you do this.
+One of the things that I can keep comparing is the microservices approach, and more generally, the approach of some service that offers you (as a consumer) some capabilities that, as you would expect, produces predictable outcomes ([hello, FP concepts!](https://en.wikipedia.org/wiki/Functional_programming)). For example, if there is a microservice that offers you an API for managing a customer database (CRUD operations), you would expect _a contract_, that is, what is the structure that you have to give to the API for performing one of these operations, what is the structure that the service will use to answer your petition And much better: how do you describe this workflow as promise statements? Try to think how can you do this.
 
 That example is confirmed by the book, according to this:
 
@@ -95,7 +95,7 @@ Burgess states that **the beauty is in the eye of the beholder** because there's
 
 Depending on the entity of the system that assess something some outcome could be right or could be wrong, and that is a perspective hard to achive or to think of as a software developers because we tend to measure everything by the same yardstick, no matter the context.
 
-Sounds trivial but that catchphrase is very very powerful because obligues us to think about the multiple perspectives, contexts, responsibilities and relationships between the agents of our system. That changes everything because that state of mind is unreachable with the _standard_ **imperative reasoning** (_if this, then that, no matter what)_.
+Sounds trivial but that catchphrase is very very powerful because obliges us to think about the multiple perspectives, contexts, responsibilities and relationships between the agents of our system. That changes everything because that state of mind is unreachable with the _standard_ **imperative reasoning** (_if this, then that, no matter what)_.
 
 ## How do promises and agents compose and interact?
 
@@ -123,7 +123,7 @@ I see parallels with the actor model (again) and distributed systems about the c
 
 Also, a thing that I cannot completely understand is the [Nash Equilibrium](https://en.wikipedia.org/wiki/Nash_equilibrium) for consensus. It is interesting because, being a concept that fits into [Game Theory](https://en.wikipedia.org/wiki/Game_theory) it sounds more like a competition for an "optimal" solution of a game rather than an agreement. At this point I am trying to figure out if something like consensus algorithms (like Paxos) fits somehow in this idea.
 
-For illustrate this concept, the book offers an example about agreement:
+To illustrate this concept, the book offers an example about agreement:
 
 > Suppose four agents: A, B, C and D; need to try to come to a decision about when to meet for dinner. If we thunk in terms of command sequences, the following might happen:
 > 
