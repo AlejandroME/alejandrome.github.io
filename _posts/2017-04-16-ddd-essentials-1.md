@@ -48,7 +48,7 @@ Now, the tactical approach is condensed in this two questions: How will I reflec
 
 Don't take me wrong: if these things still sounds too obvious for you and you had the opportunity of working in an application with nonexistent design you'll be familiar with the next concept.
 
-Summing up, this two concepts forms the base of what DDD intents to do: **_Effective design_**. That is, stategic design with tactic design implementation.
+Summing up, this two concepts forms the base of what DDD intents to do: **_Effective design_**. That is, strategic design with tactic design implementation.
 
 ## _"Big ball of mud"_
 
