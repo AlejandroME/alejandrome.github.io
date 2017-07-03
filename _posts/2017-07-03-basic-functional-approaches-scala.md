@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Functional approaches: Reader, algebra and interpreter"
-date: 2017-07-03 17:30:00-0500
-categories: ["cats", "reader", "ddd", "interpreter", "algebra", "functional patterns", "scala"]
+title: Functional approaches -  Reader, algebra and interpreter
+date: 2017-07-03 17:20:00-0500
+categories: ["ddd", "interpreter", "algebra", "functional patterns", "scala"]
 ---
 
 I develop in Scala since 2015 and the current project in which I am assigned in I found a big application that has 4+ years of development. Sadly, because of multiple reasons (one of the first projects developed in Scala in the company, developers that were learning the language and developing the current product at the same time, developers that tried to do _Imperative Scala_ or _Java in Scala_ and so on) we have several microservices that takes little or none advantage from the functional capabilities of Scala.
