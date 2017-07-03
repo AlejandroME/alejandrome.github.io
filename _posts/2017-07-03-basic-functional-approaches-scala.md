@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Functional approaches: Reader, algebra and interpreter
+title: "Functional approaches: Reader, algebra and interpreter"
 date: 2017-07-03 17:30:00-0500
 categories: ["cats", "reader", "ddd", "interpreter", "algebra", "functional patterns", "scala"]
 ---
