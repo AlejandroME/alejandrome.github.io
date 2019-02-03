@@ -5,7 +5,7 @@ permalink: /about/
 ---
 
 I'm Alejandro Marín, a software developer based in Medellín, Colombia.
-Currently I work for [S4N](http://s4n.co/) developing mostly in Scala.
+I work for [S4N](http://s4n.co/) developing mostly in Scala.
 
 The vast majority of the posts that you'll find here will be about DistSys,
 Scala and its surrounding frameworks / toolkits; and occasionally about
