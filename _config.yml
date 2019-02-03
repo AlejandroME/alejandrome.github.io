@@ -15,6 +15,6 @@ paginate: 5
 
 permalink: "/:title"
 
-gems: [jekyll-paginate, kramdown]
+plugins: [jekyll-paginate, kramdown]
 # Build settings
 markdown: kramdown
