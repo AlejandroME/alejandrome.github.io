@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/alejandrome
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://alejandrome.github.io
+  * I am alejandrome (https://keybase.io/alejandrome) on keybase.
+  * I have a public key ASCk28SGfPab2YG01Ze5T-okmxYhENr620v9e7E6yudsywo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01204cbc4f31614e077c4220f8b54341cd16662cf5f02a44f346cb19e2d58d3c4b440a",
+      "host": "keybase.io",
+      "kid": "0120a4dbc4867cf69bd981b4d597b94fea249b162110dafadb4bfd7bb13acae76ccb0a",
+      "uid": "cfcf3d6a264a662c8bb6c148c9892419",
+      "username": "alejandrome"
+    },
+    "merkle_root": {
+      "ctime": 1550238298,
+      "hash": "9d66fcaf94064f389cf6baca76b99fed311ee993ee186d440d74798f4acbc3ffb20e783e8686a3fe06d014eb21d5aee54d370c75243a3cdef22e35f801ca2ced",
+      "hash_meta": "63a839b6b30840502b0b99e016a3854df90015178f5c8887afa43eb06c620dc9",
+      "seqno": 4770336
+    },
+    "service": {
+      "entropy": "16fEkODh0UUz730AC4OsEvds",
+      "hostname": "alejandrome.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "3.0.0"
+  },
+  "ctime": 1550238323,
+  "expire_in": 504576000,
+  "prev": "3305b8a15839d5592777b3c574c7cea80c8b5521d4c879d4d5bd38a5b11c7e23",
+  "seqno": 27,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgpNvEhnz2m9mBtNWXuU/qJJsWIRDa+ttL/XuxOsrnbMsKp3BheWxvYWTESpcCG8QgMwW4oVg51Vknd7PFdMfOqAyLVSHUyHnU1b04pbEcfiPEIFPriDVKlmS5DcedqEBsHZSG9ZtKDW+Av1EN9IdUAgmjAgHCo3NpZ8RAGWgJamdw8vWoUy6tVjPLdZ70BSLTPcalSX2qJ5Pv0iPLPAFjqxXFOzOXKnOshN1W+VhE10NXm7iTXJo2mugdDahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIG3Jt7Jc4HSyBIwN+3eSfHkH/1TNNELzmkGSqyEbRyUDo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/alejandrome
+
+==================================================================
