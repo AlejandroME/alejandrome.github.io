@@ -1,0 +1,5 @@
+baseURL = 'https://alejandrome.github.io'
+languageCode = 'en-us'
+title = "Alejandro's Ramblings"
+enableEmoji = true
+theme = 'PaperMod'
