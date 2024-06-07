@@ -9,11 +9,11 @@
     <lastBuildDate>Fri, 07 Jun 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Log-Structured Merge Tree</title>
-      <link>http://localhost:1313/posts/hello-world/</link>
+      <title>Here we go again</title>
+      <link>http://localhost:1313/posts/here-we-go-again/</link>
       <pubDate>Fri, 07 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/hello-world/</guid>
-      <description>An LSM Tree overview and Java implementation.</description>
+      <guid>http://localhost:1313/posts/here-we-go-again/</guid>
+      <description>A new stab at blogging, after a long time</description>
     </item>
     <item>
       <title>About</title>
