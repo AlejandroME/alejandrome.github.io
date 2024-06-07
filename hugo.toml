@@ -1,0 +1,61 @@
+baseURL = 'https://alejandrome.github.io/'
+languageCode = 'en-us'
+title = "Alejandro's blog"
+theme = 'typo'
+
+# Theme's configurations
+[params]
+description = 'Alejandro Marin Blog'
+theme = 'auto'
+
+# Home page header
+homeIntroTitle = 'Hello and welcome'
+homeIntroContent = """
+You've landed on my blog where I share my thoughts, ideas, and explorations around Distributed Systems, Databases, Functional Programming, Data, and all things tech that interest me. 
+
+If you're wondering who's behind these posts, just head [here](/about) to get to know me a bit better.
+
+**One thing to keep in mind while you're here:** this blog is a personal space, so everything you read is my own perspective, not reflective of my employer's views.
+"""
+
+# Home page sections
+homeCollectionTitle = 'Posts'
+homeCollection = 'posts'
+
+# Pagination
+paginationSize = 50
+listSummaries = true
+
+# Breadcrumbs
+breadcrumbs = true
+
+# Social icons
+[[params.social]]
+name = 'github'
+url = 'https://github.com/AlejandroME'
+
+[[params.social]]
+name = 'linkedin'
+url = 'https://www.linkedin.com/in/alejandrome/'
+
+[[params.social]]
+name = 'x'
+url = 'https://x.com/alejandrom_e'
+
+# Main menu page
+[[params.menu]]
+name = 'home'
+url = '/'
+
+[[params.menu]]
+name = 'posts'
+url = '/posts'
+
+[[params.menu]]
+name = 'about'
+url = '/about'
+
+# Syntax highlight support
+[markup]
+[markup.highlight]
+style = 'algol'
