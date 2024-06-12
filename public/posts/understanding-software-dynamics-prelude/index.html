@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width"><meta name="description" content="Or participating in a book club" />
+
+<title>
+    
+    Understanding Software Dynamics Book: Prelude | Alejandro&#39;s blog
+    
+</title>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.f69b4a5b91a9bc416804eda1f19d04210551b843d47318bf1913d7edce1504fb.css" media="all">
+
+
+
+
+  
+
+
+
+  </head>
+
+  
+
+  
+  
+  
+
+  <body class="auto">
+
+    <div class="content">
+      <header>
+        
+
+<div class="header">
+    <h1 class="header-title">Alejandro&#39;s blog</h1>
+
+    <div class="flex">
+        
+
+        
+        
+        <p class="small ">
+            <a href="/">
+                /home
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/posts">
+                /posts
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/about">
+                /about
+            </a>
+        </p>
+        
+        
+    </div>
+
+</div>
+      </header>
+
+      <main class="main">
+        
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/posts/">Posts</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/posts/understanding-software-dynamics-prelude/">Understanding Software Dynamics Book: Prelude</a>
+</div>
+
+
+<div >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">Understanding Software Dynamics Book: Prelude</h1>
+    
+    <p class="single-summary">An intro to the Understanding Software Dynamics Book, chapters 1 and 2</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2024-06-12T00:00:00&#43;00:00">June 12, 2024</time>
+      
+
+      
+      &nbsp; · &nbsp;
+      6 min read
+      
+    </p>
+
+  </div>
+
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#chapter-1-my-program-is-too-slow">Chapter 1: My program is too slow</a>
+      <ul>
+        <li><a href="#what-is-too-slow">What is too slow?</a></li>
+        <li><a href="#general-terminology">General terminology</a></li>
+        <li><a href="#tail-latency">Tail latency</a></li>
+        <li><a href="#five-fundamental-resources">Five fundamental resources</a></li>
+      </ul>
+    </li>
+    <li><a href="#chapter-2">Chapter 2</a></li>
+    <li><a href="#some-learnings-from-the-book-club">Some learnings from the book club</a></li>
+    <li><a href="#open-questions">Open questions</a></li>
+    <li><a href="#closing-remarks">Closing remarks</a></li>
+  </ul>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    <p>Phil Eaton (one of my influences) started a <a href="https://eatonphil.com/2024-understanding-software-dynamics.html">mailing list-like book club</a> in late May for the <a href="https://a.co/d/glF9G02">Understanding Software Dynamics</a> book. At a glance, the book delves into a daunting topic for someone who haven&rsquo;t been this deep into systems performance, but I have to say that it&rsquo;s an interesting opportunity for multiple things:</p>
+<ul>
+<li>Reading about a &ldquo;novel&rdquo; topic, and trying to <em>digest</em> what I understood about it.</li>
+<li>Read what other people have to say about the topic, and learn from them.</li>
+<li>Get the encouragement to go deeper.</li>
+</ul>
+<p>The book club will kick off the discussion for two chapters at a time each week, and I am aiming to put my somewhat messy notes here, along with the <em>open questions</em> that I have. With this format, I hope that I can come back and answer some of those, based on my learnings.</p>
+<p>Having said that, let&rsquo;s go!</p>
+<h2 id="chapter-1-my-program-is-too-slow">Chapter 1: My program is too slow</h2>
+<p>The takeaways from my reading of chapter 1 are captured in the following ideas:</p>
+<ol>
+<li>What is too slow?</li>
+<li>General terminology</li>
+<li>Tail latency</li>
+<li>Five fundamental resources</li>
+</ol>
+<h3 id="what-is-too-slow">What is too slow?</h3>
+<p>In Chapter 1, Richard starts talking about two types of programmers:</p>
+<ul>
+<li>Those who can talk about — with numbers — about their program and why it is not behaving as expected.</li>
+<li>Those who can say: <em>&ldquo;My program is slow, and I don&rsquo;t know how to make it fast&rdquo;</em>.</li>
+</ul>
+<p>I am one of those programmers in the second type. It&rsquo;s interesting to observe how working at higher abstraction layers <em>limits</em> the scope of possibilities about what could go wrong with a program. When you&rsquo;re writing <em>enterprise software</em> with <em>known tools or frameworks</em> (say, Java with Spring Boot), you&rsquo;re thinking about a library that may be causing an undesired behaviour, or a misconfiguration in your deployment, a missing flag in the JVM running your program, and so on. You rarely think about <em>a cache miss</em> (unless it&rsquo;s a cache server 😅), or a SIMD computation. That&rsquo;s my observation after spending too many years in the consultancy world.</p>
+<p>As for the first type of programmers, they know how their program should behave, most of the time by using <a href="https://static.googleusercontent.com/media/sre.google/en//static/pdf/rule-of-thumb-latency-numbers-letter.pdf">standard numbers every programmer should know</a> (<a href="https://colin-scott.github.io/personal_website/research/interactive_latency.html">you can see a nice visualization for those numbers here</a>), also mentioned as <strong>order of magnitude estimations</strong>.
+Knowing that these numbers are approximations, the author says that the true learning is here, since your estimation may be wrong, or right, depending on the heuristics you use. Still, understanding the desired vs current behaviour, and running some back-of-the-envelope calculations to set your expectations greatly helps to <em>level the ground</em>, and to communicate your expectations based on numbers, not in guesses.</p>
+<p>Just to wrap up this idea: knowing the load that your service will take, the interactions of the service with other services — a <em>service</em> is an umbrella term here — and the runtime of your program, you can estimate what would be the time your program should take, and also help you our rule out scenarios that may not fit such estimation. Quoting the book:</p>
+<blockquote>
+<p>Knowing the estimates in Table 1.1 will also guide you in identifying the likely source of a performance bug. If some program fragment takes 100 msec more than you expect, the problem is unlikely to be related to branch misprediction, whose effect is 10,000,000 times smaller than 100 msec. It is more likely related to disk or network times, or as we will see in later chapters, to long lock-holding times or to waiting on long RPC sub-requests.</p>
+<p>We will design and build observation tools and data displays. As you use them, get in the habit of predicting within an order of magnitude what you expect to see. Once you are practiced at this prediction-observation-comparison loop, you will rapidly start spotting the odd stuff.</p>
+</blockquote>
+<p>This is also referred to as the <strong>thought framework</strong> in the book: <em>&ldquo;with the offered load, and a system under stress, what are the observations we can capture, how do we reason about what we see, and then how do we change those observations?&rdquo;</em>.</p>
+<h3 id="general-terminology">General terminology</h3>
+<p>There is a lot of terms that I thought I knew, but most of the time I took them for granted. It was great to see these definitions explained in a holistic way, and not tied to buzzwords, or the <em>trending design pattern</em> (microservices, anyone?). Some of the terms that caught my eye were:</p>
+<ul>
+<li><strong>Offered load:</strong> the <em>advertised</em> capacity of a service. May be measured in number of requests (or transactions) per time unit (e.g. 100K reqs/minute).</li>
+<li><strong>Service:</strong> a collection of programs responsible for handling a transaction.</li>
+<li><strong>Tail latency (explained below)</strong></li>
+<li><strong>Execution skew:</strong> the variation (in time units) of the completion time of a request.</li>
+</ul>
+<h3 id="tail-latency">Tail latency</h3>
+<p>It would be futile to try and explain again <a href="https://brooker.co.za/blog/2021/04/19/latency">what tail latency is</a>, however, I do think that the p99 discussion mentioned in the book was an <em>eye-opener</em> for me, mostly because of the true impact of this latency when you&rsquo;re able to reduce it by 1x, 2x, and more.</p>
+<h3 id="five-fundamental-resources">Five fundamental resources</h3>
+<p>Those being: CPU, memory, disk, network, and if your program is comprised of a bunch of threads, then the critical section of the program would be the fifth one. The interesting part about these resources is to see the amount of heuristics that rule each of them, and how those influence the measurement process. If you forget a variable, that mistake may yield flawed measurements.</p>
+<p>Learning how to observe these factors is one of the author&rsquo;s goals in the book.</p>
+<h2 id="chapter-2">Chapter 2</h2>
+<p>This chapter was <em>denser</em>, since we started to talk about CPU measurement, with an example. To follow this along, a <em>&ldquo;basic&rdquo;</em> knowledge of the CPU is fundamental (notice the quotes). My comments here are scarce, other than a bunch of <em>unanswered questions</em> that I want to answer first (outlined in the open questions section).</p>
+<p>So far, things that I liked about the chapter are:</p>
+<ul>
+<li>Richard followed the <strong>thought framework</strong> while running the experiment. Starting from an <em>odd scenario</em> (a program that measures the performance of the <code>add</code> instruction), and with an expectation set, he tries out different scenarios until he finds the optimal approach.</li>
+<li>He delves into the eternal <em>time-measuring dilemma</em>.</li>
+<li>The historical introduction — and refresher — to the CPUs evolution across time.</li>
+</ul>
+<h2 id="some-learnings-from-the-book-club">Some learnings from the book club</h2>
+<ul>
+<li>That there are <a href="https://www.agner.org/optimize/instruction_tables.pdf"><em>latency charts</em></a> flying around there.</li>
+<li><a href="https://github.com/sirupsen/napkin-math">This version</a> of Jeff Dean&rsquo;s numbers every programmer should know.</li>
+<li>That there&rsquo;s a <a href="https://archive.org/details/inside-the-machine-an-illustrated-introduction-to-microprocessors-and-computer-architecture-pdfdrive/mode/2up">layman&rsquo;s version of the Patterson book</a> to get acquainted with Hardware Architecture (which I&rsquo;ll probably read)</li>
+</ul>
+<h2 id="open-questions">Open questions</h2>
+<p>Chapter two has an interesting disclaimer:</p>
+<blockquote>
+<p>If you are not very familiar with the terms instruction fetch, pipelining, cache memory, and (for the next chapter) virtual memory, now would be a good time to review a computer architecture textbook, such as <a href="https://a.co/d/7jsoTUo">Hennessy and Patterson</a>.</p>
+</blockquote>
+<p>Of course, most of these concepts flew over my head, and my specific open questions are:</p>
+<ul>
+<li>How does the instruction fetch process work?</li>
+<li>How does pipelining work?</li>
+<li>How does L1/2/3 cache work?</li>
+<li>Refresher on Memory (virtual memory, pages)</li>
+<li>Out-of-order execution</li>
+</ul>
+<h2 id="closing-remarks">Closing remarks</h2>
+<p>This post (and subsequent ones in the series) aims to be my messy notes, hopefully to orient me to learn and fill in the gaps. If someone besides me is reading this, thanks!</p>
+<p>I hope this may be useful in the future</p>
+
+    
+  </div>
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+      </main>
+    </div>
+
+    <footer>
+      <p>Powered by
+    <a href="https://gohugo.io/">Hugo</a>
+    and
+    <a href="https://github.com/tomfran/typo">tomfran/typo</a>
+</p>
+
+
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+
+    </footer>
+
+  </body>
+
+  <script>
+
+  function isAuto() {
+    return document.body.classList.contains("auto");
+  }
+
+  function setTheme() {
+    if (!isAuto()) {
+      return
+    }
+
+    document.body.classList.remove("auto");
+    let cls = "light";
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      cls = "dark";
+    }
+
+    document.body.classList.add(cls);
+  }
+
+  function invertBody() {
+    document.body.classList.toggle("dark");
+    document.body.classList.toggle("light");
+  }
+
+  if (isAuto()) {
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(invertBody);
+  }
+
+  setTheme();
+
+</script>
+
+</html>
