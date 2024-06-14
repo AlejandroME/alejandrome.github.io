@@ -2,45 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Alejandro&#39;s blog</title>
-    <link>https://alejandrome.github.io/tags/</link>
+    <link>https://alejandrome.ca/tags/</link>
     <description>Recent content in Tags on Alejandro&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 12 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://alejandrome.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://alejandrome.ca/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Book Club</title>
-      <link>https://alejandrome.github.io/tags/book-club/</link>
+      <link>https://alejandrome.ca/tags/book-club/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.github.io/tags/book-club/</guid>
+      <guid>https://alejandrome.ca/tags/book-club/</guid>
       <description></description>
     </item>
     <item>
       <title>Performance</title>
-      <link>https://alejandrome.github.io/tags/performance/</link>
+      <link>https://alejandrome.ca/tags/performance/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.github.io/tags/performance/</guid>
+      <guid>https://alejandrome.ca/tags/performance/</guid>
       <description></description>
     </item>
     <item>
       <title>Understanding Software Dynamics</title>
-      <link>https://alejandrome.github.io/tags/understanding-software-dynamics/</link>
+      <link>https://alejandrome.ca/tags/understanding-software-dynamics/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.github.io/tags/understanding-software-dynamics/</guid>
+      <guid>https://alejandrome.ca/tags/understanding-software-dynamics/</guid>
       <description></description>
     </item>
     <item>
       <title>Blogging</title>
-      <link>https://alejandrome.github.io/tags/blogging/</link>
+      <link>https://alejandrome.ca/tags/blogging/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.github.io/tags/blogging/</guid>
+      <guid>https://alejandrome.ca/tags/blogging/</guid>
       <description></description>
     </item>
     <item>
       <title>Purpose</title>
-      <link>https://alejandrome.github.io/tags/purpose/</link>
+      <link>https://alejandrome.ca/tags/purpose/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.github.io/tags/purpose/</guid>
+      <guid>https://alejandrome.ca/tags/purpose/</guid>
       <description></description>
     </item>
   </channel>

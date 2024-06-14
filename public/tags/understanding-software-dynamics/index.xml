@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Understanding Software Dynamics on Alejandro&#39;s blog</title>
-    <link>https://alejandrome.github.io/tags/understanding-software-dynamics/</link>
+    <link>https://alejandrome.ca/tags/understanding-software-dynamics/</link>
     <description>Recent content in Understanding Software Dynamics on Alejandro&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 12 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://alejandrome.github.io/tags/understanding-software-dynamics/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://alejandrome.ca/tags/understanding-software-dynamics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Understanding Software Dynamics Book: Prelude</title>
-      <link>https://alejandrome.github.io/posts/understanding-software-dynamics-prelude/</link>
+      <link>https://alejandrome.ca/posts/understanding-software-dynamics-prelude/</link>
       <pubDate>Wed, 12 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.github.io/posts/understanding-software-dynamics-prelude/</guid>
+      <guid>https://alejandrome.ca/posts/understanding-software-dynamics-prelude/</guid>
       <description>An intro to the Understanding Software Dynamics Book, chapters 1 and 2</description>
     </item>
   </channel>

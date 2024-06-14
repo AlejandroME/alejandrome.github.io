@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Purpose on Alejandro&#39;s blog</title>
-    <link>https://alejandrome.github.io/tags/purpose/</link>
+    <link>https://alejandrome.ca/tags/purpose/</link>
     <description>Recent content in Purpose on Alejandro&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 07 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://alejandrome.github.io/tags/purpose/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://alejandrome.ca/tags/purpose/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Here we go again</title>
-      <link>https://alejandrome.github.io/posts/here-we-go-again/</link>
+      <link>https://alejandrome.ca/posts/here-we-go-again/</link>
       <pubDate>Fri, 07 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.github.io/posts/here-we-go-again/</guid>
+      <guid>https://alejandrome.ca/posts/here-we-go-again/</guid>
       <description>A new stab at blogging, after a long time</description>
     </item>
   </channel>
