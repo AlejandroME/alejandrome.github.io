@@ -1,4 +1,4 @@
-baseURL = 'https://alejandrome.ca/'
+baseURL = 'https://blog.alejandrome.ca/'
 languageCode = 'en-us'
 title = "Alejandro's blog"
 theme = 'typo'
