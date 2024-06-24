@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width"><meta name="description" content="Today I learned: Compose Specification" />
+
+<title>
+    
+    Today I Learned, vol. 1: Compose specification | Alejandro&#39;s blog
+    
+</title>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.f69b4a5b91a9bc416804eda1f19d04210551b843d47318bf1913d7edce1504fb.css" media="all">
+
+
+
+  </head>
+
+  
+
+  
+  
+  
+
+  <body class="auto">
+
+    <div class="content">
+      <header>
+        
+
+<div class="header">
+    <h1 class="header-title">Alejandro&#39;s blog</h1>
+
+    <div class="flex">
+        
+
+        
+        
+        <p class="small ">
+            <a href="/">
+                /home
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/posts">
+                /posts
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/about">
+                /about
+            </a>
+        </p>
+        
+        
+    </div>
+
+</div>
+      </header>
+
+      <main class="main">
+        
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/posts/">Posts</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/posts/til-compose-spec/">Today I Learned, vol. 1: Compose specification</a>
+</div>
+
+
+<div >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">Today I Learned, vol. 1: Compose specification</h1>
+    
+    <p class="single-summary">Or how to live with a long standing confusion... until now</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2024-06-24T00:00:00&#43;00:00">June 24, 2024</time>
+      
+
+      
+      &nbsp; · &nbsp;
+      2 min read
+      
+    </p>
+
+  </div>
+
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#hosting-services">Hosting services</a></li>
+    <li><a href="#the-fix">&ldquo;The fix&rdquo;</a></li>
+    <li><a href="#what-does-that-version-number-mean">What does that version number mean?</a></li>
+  </ul>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    <p>This is the first of a series of posts about random things that I get to learn. This one, the first, is a short story about those things you form an idea around swearing that it&rsquo;s true until it&rsquo;s not.</p>
+<h1 id="what-did-i-learn-today">What did I learn today?</h1>
+<p>That <a href="https://compose-spec.io/#community">Compose is an open specification</a> from the CNCF (Cloud Native Computing Foundation). I always thought that it was Docker&rsquo;s &lsquo;proprietary&rsquo; format to define resources in a containerized environment <em>á-la-kubernetes</em>.</p>
+<p><a href="https://www.docker.com/blog/announcing-the-compose-specification/">They (Docker) <em>partnered</em> with other players to make it an open format in 2020</a>. I guess that it&rsquo;s never too late to get the news?</p>
+<h2 id="hosting-services">Hosting services</h2>
+<p>I have an &lsquo;old&rsquo; desktop computer that I use as my main server in my homelab. I host some of my services there by exposing containers with persistent volumes. Most of them are defined with the Compose specification, managed with <code>docker</code> on Linux. I try to keep everything up to date as early as it&rsquo;s released, but it was a long time ago since I upgraded any of the versions of my services.</p>
+<p>This weekend, while at it, I started getting a warning:</p>
+<pre tabindex="0"><code>WARN[0000] /myroute/to/service/docker-compose.yml: version is obsolete
+</code></pre><p>And the version I had in all the compose files <del>is</del> was <code>3.8</code>.</p>
+<h2 id="the-fix">&ldquo;The fix&rdquo;</h2>
+<p>A simple one: removing the <code>version</code> line from the compose file, as this one is already deprecated.</p>
+<h2 id="what-does-that-version-number-mean">What does that version number mean?</h2>
+<p><a href="https://docs.docker.com/compose/intro/history/">According to the docs</a>, these versions (2.x and 3.x) accounted for features introduced during the development of the specification (such as Docker Swarm features in 3.x), and it basically identifies the <em>file format</em> and its elements. The new Compose specification doesn&rsquo;t seems to keep track of these changes with a version number.</p>
+
+    
+  </div>
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+      </main>
+    </div>
+
+    <footer>
+      <p>Powered by
+    <a href="https://gohugo.io/">Hugo</a>
+    and
+    <a href="https://github.com/tomfran/typo">tomfran/typo</a>
+</p>
+
+
+    </footer>
+
+  </body>
+
+  <script>
+
+  function isAuto() {
+    return document.body.classList.contains("auto");
+  }
+
+  function setTheme() {
+    if (!isAuto()) {
+      return
+    }
+
+    document.body.classList.remove("auto");
+    let cls = "light";
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      cls = "dark";
+    }
+
+    document.body.classList.add(cls);
+  }
+
+  function invertBody() {
+    document.body.classList.toggle("dark");
+    document.body.classList.toggle("light");
+  }
+
+  if (isAuto()) {
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(invertBody);
+  }
+
+  setTheme();
+
+</script>
+
+</html>

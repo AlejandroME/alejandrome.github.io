@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Performance on Alejandro&#39;s blog</title>
-    <link>https://alejandrome.ca/tags/performance/</link>
+    <link>http://localhost:1313/tags/performance/</link>
     <description>Recent content in Performance on Alejandro&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 12 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://alejandrome.ca/tags/performance/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/performance/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Understanding Software Dynamics Book: Prelude</title>
-      <link>https://alejandrome.ca/posts/understanding-software-dynamics-prelude/</link>
+      <link>http://localhost:1313/posts/understanding-software-dynamics-prelude/</link>
       <pubDate>Wed, 12 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.ca/posts/understanding-software-dynamics-prelude/</guid>
+      <guid>http://localhost:1313/posts/understanding-software-dynamics-prelude/</guid>
       <description>An intro to the Understanding Software Dynamics Book, chapters 1 and 2</description>
     </item>
   </channel>

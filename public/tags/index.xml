@@ -2,45 +2,73 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Alejandro&#39;s blog</title>
-    <link>https://alejandrome.ca/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on Alejandro&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://alejandrome.ca/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Compose</title>
+      <link>http://localhost:1313/tags/compose/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/compose/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Containers</title>
+      <link>http://localhost:1313/tags/containers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/containers/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Docker</title>
+      <link>http://localhost:1313/tags/docker/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/docker/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Standards</title>
+      <link>http://localhost:1313/tags/standards/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/standards/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Book Club</title>
-      <link>https://alejandrome.ca/tags/book-club/</link>
+      <link>http://localhost:1313/tags/book-club/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.ca/tags/book-club/</guid>
+      <guid>http://localhost:1313/tags/book-club/</guid>
       <description></description>
     </item>
     <item>
       <title>Performance</title>
-      <link>https://alejandrome.ca/tags/performance/</link>
+      <link>http://localhost:1313/tags/performance/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.ca/tags/performance/</guid>
+      <guid>http://localhost:1313/tags/performance/</guid>
       <description></description>
     </item>
     <item>
       <title>Understanding Software Dynamics</title>
-      <link>https://alejandrome.ca/tags/understanding-software-dynamics/</link>
+      <link>http://localhost:1313/tags/understanding-software-dynamics/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.ca/tags/understanding-software-dynamics/</guid>
+      <guid>http://localhost:1313/tags/understanding-software-dynamics/</guid>
       <description></description>
     </item>
     <item>
       <title>Blogging</title>
-      <link>https://alejandrome.ca/tags/blogging/</link>
+      <link>http://localhost:1313/tags/blogging/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.ca/tags/blogging/</guid>
+      <guid>http://localhost:1313/tags/blogging/</guid>
       <description></description>
     </item>
     <item>
       <title>Purpose</title>
-      <link>https://alejandrome.ca/tags/purpose/</link>
+      <link>http://localhost:1313/tags/purpose/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.ca/tags/purpose/</guid>
+      <guid>http://localhost:1313/tags/purpose/</guid>
       <description></description>
     </item>
   </channel>

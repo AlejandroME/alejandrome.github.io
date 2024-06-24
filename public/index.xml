@@ -2,31 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home on Alejandro&#39;s blog</title>
-    <link>https://alejandrome.ca/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content in Home on Alejandro&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Jun 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://alejandrome.ca/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Today I Learned, vol. 1: Compose specification</title>
+      <link>http://localhost:1313/posts/til-compose-spec/</link>
+      <pubDate>Mon, 24 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/til-compose-spec/</guid>
+      <description>Or how to live with a long standing confusion&amp;hellip; until now</description>
+    </item>
     <item>
       <title>Understanding Software Dynamics Book: Prelude</title>
-      <link>https://alejandrome.ca/posts/understanding-software-dynamics-prelude/</link>
+      <link>http://localhost:1313/posts/understanding-software-dynamics-prelude/</link>
       <pubDate>Wed, 12 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.ca/posts/understanding-software-dynamics-prelude/</guid>
+      <guid>http://localhost:1313/posts/understanding-software-dynamics-prelude/</guid>
       <description>An intro to the Understanding Software Dynamics Book, chapters 1 and 2</description>
     </item>
     <item>
       <title>Here we go again</title>
-      <link>https://alejandrome.ca/posts/here-we-go-again/</link>
+      <link>http://localhost:1313/posts/here-we-go-again/</link>
       <pubDate>Fri, 07 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.ca/posts/here-we-go-again/</guid>
+      <guid>http://localhost:1313/posts/here-we-go-again/</guid>
       <description>A new stab at blogging, after a long time</description>
     </item>
     <item>
       <title>About</title>
-      <link>https://alejandrome.ca/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://alejandrome.ca/about/</guid>
+      <guid>http://localhost:1313/about/</guid>
       <description>Hi there! I&amp;rsquo;m Alejandro Marin, a software developer originally from Colombia, now living in Canada. I&amp;rsquo;ve spent about 15 years working with enterprise software, doing everything from coding to designing the big picture as an architect - though I must admit, coding is where my heart really lies.&#xA;I&amp;rsquo;m really into understanding Distributed Systems, anything that has to do with data, Functional Programming, and strongly-typed languages. These are my bread and butter, and I love digging deep into these topics.</description>
     </item>
   </channel>
