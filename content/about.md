@@ -18,4 +18,4 @@ Some things about me:
 - I read quite a lot.
 - I collect records since 2013. If you're looking to discover some new music [here's my collection](https://www.discogs.com/user/ouritual/collection)
 - Naturally, I love coffee, and bring as much as I can with me every time I visit Colombia.
-- Currently funemployed, looking for my next move as a Forward Deployed Engineer to bring my expertise to create great products. My CV is at the top of this page (or [here](https://alejandrome.ca/cv.pdf)
+- Currently funemployed, looking for my next move as a Forward Deployed Engineer to bring my expertise to create great products. My CV is at the top of this page (or [here](https://alejandrome.ca/cv.pdf))
