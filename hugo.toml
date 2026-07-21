@@ -26,6 +26,15 @@ pygmentsUseClasses = true
     url = "/about/"
     weight = 2
 
+
+  [[menu.main]]
+    identifier = "cv"
+    name = "cv"
+    title = "cv"
+    url = "/cv.pdf"
+    weight = 3
+    
+
 [permalinks]
   posts = "/:title/"
 
