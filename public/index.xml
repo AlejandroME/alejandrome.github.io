@@ -6,22 +6,27 @@
     <description>Recent content on Alejandro&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Mon, 20 Jul 2026 18:23:26 -0400</lastBuildDate>
+    <lastBuildDate>Tue, 21 Jul 2026 00:00:00 -0400</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
     
     
-    
-    
     <item>
-      <title>Hello World</title>
-      <link>http://localhost:1313/hello-world/</link>
-      <pubDate>Mon, 20 Jul 2026 18:01:33 -0400</pubDate>
+      <title>Blogging again</title>
+      <link>http://localhost:1313/blogging-again/</link>
+      <pubDate>Tue, 21 Jul 2026 00:00:00 -0400</pubDate>
       
-      <guid>http://localhost:1313/hello-world/</guid>
-      <description></description>
+      <guid>http://localhost:1313/blogging-again/</guid>
+      <description>&lt;p&gt;After many years without posting something publicly, I am back at it again. This is the nth attempt to have a blog, but this time it&amp;rsquo;ll be different (&lt;em&gt;famous last words&lt;/em&gt;).&lt;/p&gt;
+&lt;p&gt;Why?&lt;/p&gt;
+&lt;p&gt;Because I have found that writing is the best way for me to learn, check my assumptions and ensure I am not mixing things up. Most importantly, I am not striving for perfection, which was a huge blocker in previous attempts, nor I am writing for a specific audience. If any Internet stranger stumbles upon these notes, and find them useful, that&amp;rsquo;s great, and I encourage you to reach out if you have feedback &amp;ndash; my email address is in my CV.&lt;/p&gt;
+&lt;p&gt;Reading folks who are consistent at blogging gave me the motivation to do it myself. Some of them are: &lt;a href=&#34;https://danluu.com/&#34;&gt;Dan Luu&lt;/a&gt;, &lt;a href=&#34;https://simonwillison.net/&#34;&gt;Simon Willison&lt;/a&gt;, &lt;a href=&#34;https://muratbuffalo.blogspot.com/&#34;&gt;Murat Demibas&lt;/a&gt;, and &lt;a href=&#34;https://jordangonen.com/&#34;&gt;Jordan Gonen&lt;/a&gt;. There are more, but those are the ones on top of my head.&lt;/p&gt;
+&lt;p&gt;I don&amp;rsquo;t have much else to say other than: let&amp;rsquo;s do this!&lt;/p&gt;
+</description>
     </item>
+    
+    
     
     
   </channel>
