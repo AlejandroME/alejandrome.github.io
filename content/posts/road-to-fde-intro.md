@@ -4,7 +4,7 @@ draft = false
 title = 'Road to Forward Deployed Engineer -- An Intro'
 +++
 
-This is the first post in a series I called _"Road to Forward Deployed Engineer"_. After my last job as a Software Technical Program Manager at Oxide, I've been weighing what's next. It is the first time in 16 years that I have a break, and the past 1.5 months have been enlightening in so many aspects: I had time to go outdoors in several camping trips -- summer is too short in the northern hemisphere! --, playing with synthesizers again, reading a lot, practicing my communication skills, and catching up with the crazy pace of AI.
+This is the first post in a series I called _"Road to Forward Deployed Engineer"_. After my last job as a Software Technical Program Manager at Oxide, I've been weighing what's next. It is the first time in 16 years that I have a break, which has been energizing in so many aspects: I had time to go outdoors in several camping trips -- summer is too short in the northern hemisphere! --, playing with synthesizers again, reading a lot, practicing my communication skills, and catching up with the crazy pace of AI.
 
 I've spent the last 8 years in management roles, and while I enjoy them, and had the chance to stay fairly technical, I want to go back to deep hands-on work, mixed with customer engagement. The Forward Deployed Engineer role has made waves in the past couple of years across tech circles, even though it's not a new concept, and some would even argue that it's _consultancy work_ in disguise -- which I don't think it's true after spending 10+ years in a consultancy/staff augmentation company. The FDE role's intersection between product and customer work energizes me, and I feel it's a natural next step for me.
 
