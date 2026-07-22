@@ -91,7 +91,7 @@ And it gets better:
 
 Challenge accepted! During the next 10 days, I'll follow the plan and share my learnings here, one post at a time.
 
-# Learnings
+## Learnings
 
 - **Day 1:** LLM calls + structured output
 - **Day 2:** Prompt reliability
