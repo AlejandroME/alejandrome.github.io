@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alejandro&#39;s blog">
+    
+    <link rel="shortcut icon" href="http://localhost:1313/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    <link rel="canonical" href="http://localhost:1313/road-to-forward-deployed-engineer--an-intro/" />
+    <title>Road to Forward Deployed Engineer -- An Intro</title>
+</head>
+<body><header id="banner">
+    <h2><a href="http://localhost:1313/">Alejandro&#39;s blog</a></h2>
+    <nav>
+        <ul>
+            <li>
+                <a href="/" title="posts">posts</a>
+            </li><li>
+                <a href="/about/" title="about">about</a>
+            </li><li>
+                <a href="/cv.pdf" title="cv">cv</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main id="content">
+<article>
+    <header id="post-header">
+        <h1>Road to Forward Deployed Engineer -- An Intro</h1>
+        <div>
+                <time>July 21, 2026</time>
+            </div>
+    </header><p>This is the first post in a series I called <em>&ldquo;Road to Forward Deployed Engineer&rdquo;</em>. After my last job as a Software Technical Program Manager at Oxide, I&rsquo;ve been weighing what&rsquo;s next. It is the first time in 16 years that I have a break, and the past 1.5 months have been enlightening in so many aspects: I had time to go outdoors in several camping trips &ndash; summer is too short in the northern hemisphere! &ndash;, playing with synthesizers again, reading a lot, practicing my communication skills, and catching up with the crazy pace of AI.</p>
+<p>I&rsquo;ve spent the last 8 years in management roles, and while I enjoy them, and had the chance to stay fairly technical, I want to go back to deep hands-on work, mixed with customer engagement. The Forward Deployed Engineer role has made waves in the past couple of years across tech circles, even though it&rsquo;s not a new concept, and some would even argue that it&rsquo;s <em>consultancy work</em> in disguise &ndash; which I don&rsquo;t think it&rsquo;s true after spending 10+ years in a consultancy/staff augmentation company. The FDE role&rsquo;s intersection between product and customer work energizes me, and I feel it&rsquo;s a natural next step for me.</p>
+<p>My technical background is heavy on backend systems and data integration, via custom components (services) built on Java, Scala, or Python, and early in my career, using <a href="https://en.wikipedia.org/wiki/Enterprise_service_bus">tools no one even mention anymore</a>. While I use AI in my development workflow, I haven&rsquo;t built a production-like system that leverages AI at its core, so the question is: <em>what do I need to learn to close the gap?</em> There are lots of courses and tutorials out there, and I could just simply follow them and learn the concepts, but I have figured that I am bad at learning by watching others do things, even if there is an &ldquo;assignment&rdquo; after the lesson, and AI Engineering roadmaps <a href="https://roadmap.sh/ai-engineer">like this</a> cover a broader surface area that I don&rsquo;t see practical for me at this stage.</p>
+<h2 id="llms-as-learning-partners">LLMs as learning partners</h2>
+<p>I recently watched <a href="https://www.youtube.com/watch?v=D_4AYLr_hFI">an interview</a> with <a href="https://sirupsen.com/about">Simon Eskildsen</a> (Turbopuffer&rsquo;s co-founder) in where he describes how he uses LLMs to become <em>a learning machine</em>, which deeply resonated with the way I&rsquo;ve been using them to navigate through complex codebases, understand concepts from first principles, and brainstorm ideas. This case is not different, so I fired up Claude and prompted the following:</p>
+<blockquote>
+<p>I will pivot to Forward Deployed Engineer, but I have to close my AI gap. I was chatting with you yesterday about following the AI Engineer roadmap here: <a href="https://roadmap.sh/ai-engineer">https://roadmap.sh/ai-engineer</a>, but I don&rsquo;t find it actionable for my context. I am a software developer, and have most of the foundations in place, but I want to close the gap in understanding how to implement LLM-backed systems in production.</p>
+<p>I&rsquo;ve created this project because I have the following idea: what if we build a study plan in a way that you lay out the topics, with a practical exercise that I implement in Python, then you grade it, give me feedback, and move onto the next topic? Ideally building on top of the previous implementation.</p>
+<p>I am imagining something like this: an enterprise use case in where we need to work with information from several systems and implement workflows, and automations. Our mission is to shape the program in a way that I can learn these concepts in, at most, two weeks, devoting 4-6 hours daily to study. Let&rsquo;s brainstorm, and ask as many clarification questions as you want about me, my background, my goals, the idea, or anything you think it&rsquo;s relevant</p>
+</blockquote>
+<p>That&rsquo;s a far from perfect prompt, but Claude came up with this answer:</p>
+<blockquote>
+<p>This is a good idea, and it fits how you learn — you build it, first principles, I grade. Let me react, drop a straw-man on the table, then ask a few things to lock it in. Where your real gap is</p>
+<p>Forward-deployed = you parachute into a customer and, in days, stand up a working LLM system on their messy real data and systems, prove it&rsquo;s reliable, and explain it to non-engineers. Your distributed-systems / data / backend foundation already covers ~70% of that. The missing 30% is a specific, learnable layer:</p>
+<p>structured LLM output → retrieval over enterprise data → tool/function calling against real systems → agentic workflow orchestration → evals + tracing to prove it works.</p>
+<p>That layer is exactly what we drill. Nothing on the roadmap.sh list about training models, GPUs, or fine-tuning matters for FDE — we skip it.</p>
+<p>The shape: one enterprise agent that grows every day</p>
+<p>Rather than disconnected exercises, we build a single &ldquo;enterprise assistant&rdquo; in a domain you pick and add one capability per day, each graded before moving on. By Day 10 you have a demo-able repo plus a talk track — which is itself an FDE interview asset.</p>
+<p>Daily loop:</p>
+<ol>
+<li>I give you the concept (tight) + a spec: problem statement, the interface/contract, acceptance criteria.</li>
+<li>You implement in Python, solo.</li>
+<li>I grade on a rubric — correctness, LLM-system design choices, reliability/eval thinking, code quality, and &ldquo;could you demo and explain this to a customer.&rdquo;</li>
+<li>Feedback → the next topic builds on your code.</li>
+</ol>
+<p>Straw-man 10-day arc (I&rsquo;ll reshape from your answers):</p>
+<table>
+	<thead>
+			<tr>
+					<th><strong>Day</strong></th>
+					<th><strong>Topic</strong></th>
+					<th><strong>You build</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>1</td>
+					<td>LLM calls + structured output</td>
+					<td>Typed extraction from messy tickets/emails (Pydantic, validation, retries)</td>
+			</tr>
+			<tr>
+					<td>2</td>
+					<td>Prompt reliability</td>
+					<td>Routing/classification + a tiny eval</td>
+			</tr>
+			<tr>
+					<td>3</td>
+					<td>Embeddings + retrieval</td>
+					<td>Index the enterprise KB in pgvector (reuse your setup)</td>
+			</tr>
+			<tr>
+					<td>4</td>
+					<td>RAG end-to-end</td>
+					<td>Q&amp;A with citations + &ldquo;I don&rsquo;t know&rdquo; handling</td>
+			</tr>
+			<tr>
+					<td>5</td>
+					<td>Evals for RAG</td>
+					<td>Eval set, LLM-as-judge, recall@k, regression harness</td>
+			</tr>
+			<tr>
+					<td>6</td>
+					<td>Tool / function calling</td>
+					<td>Agent hits mock enterprise APIs (CRM/tickets/orders)</td>
+			</tr>
+			<tr>
+					<td>7</td>
+					<td>Agentic workflow</td>
+					<td>Multi-step &ldquo;resolve this case&rdquo; across systems; workflow-vs-agent judgment</td>
+			</tr>
+			<tr>
+					<td>8</td>
+					<td>Observability + reliability</td>
+					<td>Langfuse tracing, guardrails, cost/latency</td>
+			</tr>
+			<tr>
+					<td>9</td>
+					<td>Productionize</td>
+					<td>Wrap as an MCP server / FastAPI (your capstone idea), streaming</td>
+			</tr>
+			<tr>
+					<td>10</td>
+					<td>Capstone + demo</td>
+					<td>Polish, recorded demo, &ldquo;how I&rsquo;d forward-deploy this&rdquo; write-up</td>
+			</tr>
+	</tbody>
+</table>
+</blockquote>
+<p>That&rsquo;s a pretty cool plan in my opinion. After I gave Claude the thumbs up, it came up with our fictional customer and their use case:</p>
+<blockquote>
+<p>The customer you&rsquo;re &ldquo;deploying into&rdquo;</p>
+<p>To make this concrete, here&rsquo;s the fictional account we build for — reskin it if you want:</p>
+<p>Meridian — a B2B SaaS data-integration platform (connectors, syncs, pipelines). I picked dev-infra deliberately: the support tickets are technical (sync failures, connector auth, API rate limits, plan entitlements), so you can actually judge whether the agent&rsquo;s answers are correct — which you&rsquo;ll need when you grade your own RAG and evals.</p>
+<p>Its &ldquo;systems,&rdquo; which your agent will read from and act on:</p>
+<ul>
+<li>Tickets (Zendesk-like) — subject, body, customer, status, priority, history</li>
+<li>CRM (Salesforce-like) — account, plan tier, entitlements, renewal date, health</li>
+<li>Knowledge base — help docs, runbooks, policies (your RAG corpus)</li>
+<li>Billing/usage — plan limits, current usage</li>
+</ul>
+</blockquote>
+<p>And it gets better:</p>
+<blockquote>
+<p>What I provide vs. what you build</p>
+<p>This mirrors real FDE work: the customer&rsquo;s data and systems are given — you build the LLM layer on top.</p>
+<ul>
+<li>I provide (fixtures): synthetic seed data + thin mock system stubs (customer_env/ — functions like get_account(), search_kb(), update_ticket() backed by JSON/SQLite). Generating fake enterprise data isn&rsquo;t the skill we&rsquo;re training.</li>
+<li>You build (agent/): everything LLM — prompts, schemas, retrieval, tools, orchestration, evals, tracing. This is 100% your code, from first principles. No finished code from me.
+How I&rsquo;ll grade (same rubric every day, so you can aim at it)</li>
+</ul>
+<p>Each exercise scored 0–4 on five axes, plus a verdict:</p>
+<ol>
+<li>Correctness — meets the spec &amp; acceptance criteria</li>
+<li>LLM-system design — right technique for the job (schema vs. RAG vs. tool vs. agent)</li>
+<li>Reliability — validation, retries, &ldquo;I don&rsquo;t know,&rdquo; guardrails, edge cases</li>
+<li>Evaluation mindset — how do you know it works?</li>
+<li>Code quality — typed, readable, extensible</li>
+</ol>
+<p>FDE verdict: Would this survive a customer demo, and what breaks first?</p>
+</blockquote>
+<p>Challenge accepted! During the next 10 days, I&rsquo;ll follow the plan and share my learnings here, one post at a time.</p>
+<h1 id="learnings">Learnings</h1>
+<ul>
+<li><strong>Day 1:</strong> LLM calls + structured output</li>
+<li><strong>Day 2:</strong> Prompt reliability</li>
+<li><strong>Day 3:</strong> Embeddings + retrieval</li>
+<li><strong>Day 4:</strong> RAG end-to-end</li>
+<li><strong>Day 5:</strong> Evals for RAG</li>
+<li><strong>Day 6:</strong> Tool / function calling</li>
+<li><strong>Day 7:</strong> Agentic workflow</li>
+<li><strong>Day 8:</strong> Observability + reliability</li>
+<li><strong>Day 9:</strong> Productionize</li>
+<li><strong>Day 10:</strong> Capstone + demo</li>
+</ul>
+</article>
+
+        </main><footer id="footer">
+    
+</footer>
+</body>
+</html>

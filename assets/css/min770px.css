@@ -1,0 +1,55 @@
+@media (min-width: 770px) {
+body {
+    max-width: 820px;
+    font-size: 18px;
+    font-size: 1.8rem;
+    line-height: 1.6;
+    margin: 0 auto;
+}
+
+main#content hr {
+    width: 108%;
+    margin-left: -3.8%;
+}
+
+/* index.html styles */
+header#banner h2 {
+    font-size: 27px;
+    font-size: 2.7rem;
+}
+
+main#content h3 {
+    font-size: 22px;
+    font-size: 2.2rem;
+}
+
+main#content ul#posts {
+    font-size: 19px;
+    font-size: 1.9rem;
+}
+
+/* single.html styles */
+main#content header#post-header h1 {
+    font-size: 27px;
+    font-size: 2.7rem;
+}
+
+main#content img {
+    max-width: 108%;
+    margin-left: -3.8%;
+}
+
+main#content figure {
+    margin-left: -3.8%;
+}
+
+main#content figure img {
+    max-width: 108%;
+}
+
+main#content pre {
+    width: 108%;
+    margin-left: -3.8%;
+    padding: 1.5rem 2.2rem;
+}
+}
