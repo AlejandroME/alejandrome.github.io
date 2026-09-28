@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alejandro&#39;s blog">
+    
+    <link rel="shortcut icon" href="http://localhost:1313/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    <link rel="canonical" href="http://localhost:1313/road-to-forward-deployed-engineer-part-1/" />
+    <title>Road to Forward Deployed Engineer: Part 1</title>
+</head>
+<body><header id="banner">
+    <h2><a href="http://localhost:1313/">Alejandro&#39;s blog</a></h2>
+    <nav>
+        <ul>
+            <li>
+                <a href="/" title="posts">posts</a>
+            </li><li>
+                <a href="/about/" title="about">about</a>
+            </li><li>
+                <a href="/cv.pdf" title="cv">cv</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main id="content">
+<article>
+    <header id="post-header">
+        <h1>Road to Forward Deployed Engineer: Part 1</h1>
+        <div>
+                <time>July 22, 2026</time>
+            </div>
+    </header><h1 id="intro">Intro</h1>
+<p>This is the first post in the Road to Forward Deployed Engineer series, where I implemented a simple agent that extracts unstructured support tickets to a typed model. Hitting some non-deterministic behaviour and thinking how to mitigate it was so much fun!</p>
+<p>Before I move on, this is the description of the enterprise I am <em>embedded into</em>:</p>
+<blockquote>
+<p>Meridian — a B2B SaaS data-integration platform (connectors, syncs, pipelines). I picked dev-infra deliberately: the support tickets are technical (sync failures, connector auth, API rate limits, plan entitlements), so you can actually judge whether the agent’s answers are correct — which you’ll need when you grade your own RAG and evals.</p>
+<p>Its “systems,” which your agent will read from and act on:</p>
+<p>Tickets (Zendesk-like) — subject, body, customer, status, priority, history
+CRM (Salesforce-like) — account, plan tier, entitlements, renewal date, health
+Knowledge base — help docs, runbooks, policies (your RAG corpus)
+Billing/usage — plan limits, current usage</p>
+</blockquote>
+<p>The goal of the first part is to turn messy, unstructured support tickets into <em>typed</em>, <em>validated</em> data that downstream systems can consume. The raw data follows this structure:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;MER-1001&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;channel&#34;</span><span class="p">:</span> <span class="s2">&#34;email&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;received_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2026-07-18T09:12:00Z&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;raw_text&#34;</span><span class="p">:</span> <span class="s2">&#34;Subject: Salesforce connector stopped syncing\n\nHi team,\n\nSince yesterday afternoon our Salesforce -&gt; Snowflake sync has been failing. The run log just says \&#34;authentication failed\&#34;. We did rotate our Salesforce admin password on Tuesday, could that be it? This feeds our revenue dashboard so it&#39;s fairly urgent for us.\n\nAccount: northwind-analytics (workspace nwa-prod)\nContact: dana@northwind-analytics.com\n\nThanks,\nDana&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;MER-1002&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;channel&#34;</span><span class="p">:</span> <span class="s2">&#34;chat&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;received_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2026-07-18T14:47:00Z&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;raw_text&#34;</span><span class="p">:</span> <span class="s2">&#34;[14:47] customer: nothing is syncing. NOTHING. this is completely unacceptable, we are paying you people a lot of money\n[14:47] customer: fix it\n[14:49] customer: hello???&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="err">...</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div><p>This data is consumed via an interface that resembles an API on Python:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;Read-only accessor for Meridian&#39;s support tickets.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">Treat this as a given customer system API. Don&#39;t edit it (or the data) to make
+</span></span></span><span class="line"><span class="cl"><span class="s2">your agent pass — handle whatever the tickets throw at you in your own code.
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Ticket</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl">    <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># &#34;email&#34; | &#34;chat&#34; | &#34;web_form&#34; | &#34;api_alert&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">received_at</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># ISO 8601</span>
+</span></span><span class="line"><span class="cl">    <span class="n">raw_text</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># the messy, unstructured ticket content</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">load_tickets</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Ticket</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Return every raw support ticket, in the order received.&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">_DATA</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><p><strong>Goal:</strong> Build <strong><code>agent/extract.py</code></strong> that turns each raw ticket served by <code>load_tickets</code> into a validated <code>TicketExtraction</code>, implemented in the following interfaces:</p>
+<ul>
+<li><code>extract_ticket(raw_ticket: str) -&gt; TicketExtraction</code></li>
+<li>A <code>main()</code> / CLI that runs over every ticket, prints a readable table, and writes <code>agent/out/day1_extractions.json</code></li>
+</ul>
+<p><code>TicketExtraction</code> has the following contents:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Field</th>
+					<th>Type</th>
+					<th>Meaning</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>summary</code></td>
+					<td><code>str</code></td>
+					<td>one neutral sentence, no secrets</td>
+			</tr>
+			<tr>
+					<td><code>category</code></td>
+					<td><code>Literal[...]</code></td>
+					<td><code>bug | how_to | billing | feature_request | outage | account_access | other</code></td>
+			</tr>
+			<tr>
+					<td><code>product_area</code></td>
+					<td><code>Literal[...]</code></td>
+					<td><code>connectors | sync | api | auth | billing | dashboard | unknown</code></td>
+			</tr>
+			<tr>
+					<td><code>severity</code></td>
+					<td><code>Literal[...]</code></td>
+					<td><code>low | medium | high | critical</code> — <strong>inferred</strong>, not stated</td>
+			</tr>
+			<tr>
+					<td><code>sentiment</code></td>
+					<td><code>Literal[...]</code></td>
+					<td><code>calm | neutral | frustrated | angry</code></td>
+			</tr>
+			<tr>
+					<td><code>contains_secret_or_pii</code></td>
+					<td><code>bool</code></td>
+					<td>did the customer paste a token / key / card / etc.?</td>
+			</tr>
+			<tr>
+					<td><code>affected_entities</code></td>
+					<td><code>list[str]</code></td>
+					<td>connectors, systems, job ids, accounts named</td>
+			</tr>
+			<tr>
+					<td><code>is_actionable</code></td>
+					<td><code>bool</code></td>
+					<td>could you act on this as-is?</td>
+			</tr>
+			<tr>
+					<td><code>missing_info</code></td>
+					<td><code>list[str]</code></td>
+					<td>if not actionable, what you&rsquo;d need to ask for</td>
+			</tr>
+	</tbody>
+</table>
+<p><strong>Passing criteria</strong>:</p>
+<ol>
+<li>Extract this unstructured data into <code>TicketExtraction</code> <em>accurately</em></li>
+<li>Gracefully handle the model&rsquo;s <code>stop_reason</code> output, retrying where applicable or emitting a flagged record so a human can decide whether to manually retry it or process it manually</li>
+<li>Enforce business rules beyond the schema</li>
+<li>If there are secrets in the ticket, those must be redacted during the extraction and must not appear anywhere else</li>
+<li>It must use the model&rsquo;s structure output capability, not <em>regexing</em> over the model&rsquo;s output</li>
+</ol>
+<p>I am using Claude Opus 4.8 with the <a href="https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python">Python SDK</a>.</p>
+<h1 id="prompting">Prompting</h1>
+<p>With the interfaces defined, and the restrictions, I took a stab at a one-shot prompt:</p>
+<blockquote>
+<p>Your task is to validate the support ticket&rsquo;s text and parse it according to the TicketExtraction pydantic model provided. &gt; Your evaluation must follow these business rules:</p>
+<ul>
+<li>It must summarize the ticket and set it in the <code>summary</code> field. If there&rsquo;s any PII, secrets, API keys, card numbers or any sensitive information, it must NOT be included in the summary</li>
+<li>It must assign a ticket category based on the <code>category</code> values list</li>
+<li>It must assign a product area based on the <code>product_area</code> values list</li>
+<li>It must assign a severity area based on the <code>severity</code> values list</li>
+<li>It must assign a sentiment area based on the <code>sentiment</code> values list</li>
+<li>It must check the message and determine if there is any PII or sensitive information, like API keys, passwords, credentials, card numbers or anything that is sensitive and can be exploited. Please note that the user can mention things like &ldquo;we changed our password&rdquo;, but that doesn&rsquo;t mean they shared sensitive information.</li>
+<li>It must extract the names of the affected entitites and set it in the <code>affected_entities</code> list. Affected entities can be any connectors, systems, job ids, accounts, organizations, environments</li>
+<li>It must determine if the ticket is actionable for a support agent, based on the information shared by the customer and set it in the <code>is_actionable</code> field. If it&rsquo;s not actionable, it must set a list of actions or data needed from the customer to make it actionable. Set these in the <code>missing_info</code> list</li>
+</ul>
+</blockquote>
+<p>It&rsquo;s the first prompt that came to mind, and the results I got were mixed: while the model was capable of extracting most of the data accurately, the classification on <em>constrained</em> fields wasn&rsquo;t accurate. This is one example:</p>
+<p><strong>Input:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;MER-1001&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;channel&#34;</span><span class="p">:</span> <span class="s2">&#34;email&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;received_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2026-07-18T09:12:00Z&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;raw_text&#34;</span><span class="p">:</span> <span class="s2">&#34;Subject: Salesforce connector stopped syncing\n\nHi team,\n\nSince yesterday afternoon our Salesforce -&gt; Snowflake sync has been failing. The run log just says \&#34;authentication failed\&#34;. We did rotate our Salesforce admin password on Tuesday, could that be it? This feeds our revenue dashboard so it&#39;s fairly urgent for us.\n\nAccount: northwind-analytics (workspace nwa-prod)\nContact: dana@northwind-analytics.com\n\nThanks,\nDana&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="err">,</span>
+</span></span></code></pre></div><p><strong>Output:</strong></p>
+<pre tabindex="0"><code>summary=&#34;Salesforce to Snowflake sync failing since yesterday afternoon with &#39;authentication failed&#39; error in run log. Customer rotated their Salesforce admin password on Tuesday, which may be the cause. This feeds their revenue dashboard and is urgent.&#34; 
+category=&#39;bug&#39; 
+product_area=&#39;connectors&#39; 
+severity=&#39;high&#39; 
+sentiment=&#39;neutral&#39; 
+contains_secret_or_pii=True affected_entities=[&#39;Salesforce connector&#39;, &#39;Snowflake&#39;, &#39;northwind-analytics&#39;, &#39;nwa-prod&#39;] is_actionable=&#39;true&#39; 
+missing_info=[&#39;Confirmation of whether Salesforce credentials in the connector were updated after the password rotation&#39;, &#39;Specific failing sync/job ID&#39;, &#39;Timestamp of the last successful sync&#39;]
+</code></pre><p><code>is_actionable</code> and <code>missing_info</code> goes hand in hand, and the rule I wanted to enforce here is: if the ticket doesn&rsquo;t contain enough information to investigate and trobleshoot it, it should be marked as <code>is_actionable=false</code> AND list what&rsquo;s missing.</p>
+<p>Naive prompt:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">extract_ticket</span><span class="p">(</span><span class="n">raw_ticket</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TicketExtraction</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">client</span> <span class="o">=</span> <span class="n">Anthropic</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">model</span><span class="o">=</span><span class="s2">&#34;claude-opus-4-8&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">max_tokens</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">            Your task is to validate the support ticket&#39;s text and parse it according to the TicketExtraction pydantic model provided. Your evaluation must follow these business rules:
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">                - It must summarize the ticket and set it in the `summary` field. If there&#39;s any PII, secrets, API keys, card numbers or any sensitive information, it must NOT be included in the summary
+</span></span></span><span class="line"><span class="cl"><span class="s2">                - It must assign a ticket category based on the `category` values list
+</span></span></span><span class="line"><span class="cl"><span class="s2">                - It must assign a product area based on the `product_area` values list
+</span></span></span><span class="line"><span class="cl"><span class="s2">                - It must assign a severity area based on the `severity` values list
+</span></span></span><span class="line"><span class="cl"><span class="s2">                - It must assign a sentiment area based on the `sentiment` values list
+</span></span></span><span class="line"><span class="cl"><span class="s2">                - It must check the message and determine if there is any PII or sensitive information, like API keys, passwords, credentials, card numbers or anything that is sensitive and can be exploited. Please note that the user can mention things like &#34;we changed our password&#34;, but that doesn&#39;t mean they shared sensitive information. 
+</span></span></span><span class="line"><span class="cl"><span class="s2">                - It must extract the names of the affected entitites and set it in the `affected_entities` list. Affected entities can be any connectors, systems, job ids, accounts, organizations, environments
+</span></span></span><span class="line"><span class="cl"><span class="s2">                - It must determine if the ticket is actionable for a support agent, based on the information shared by the customer and set it in the `is_actionable` field. If it&#39;s not actionable, it must set a list of actions or data needed from the customer to make it actionable. Set these in the `missing_info` list
+</span></span></span><span class="line"><span class="cl"><span class="s2">            
+</span></span></span><span class="line"><span class="cl"><span class="s2">            The ticket content is: </span><span class="si">{</span><span class="n">raw_ticket</span><span class="si">}</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &#34;&#34;&#34;</span><span class="p">}],</span>
+</span></span><span class="line"><span class="cl">        <span class="n">output_format</span><span class="o">=</span><span class="n">TicketExtraction</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;LLM output is: </span><span class="si">{</span><span class="n">resp</span><span class="o">.</span><span class="n">parsed_output</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Stop reason is: </span><span class="si">{</span><span class="n">resp</span><span class="o">.</span><span class="n">parsed_output</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>Output:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ uv run python -m main
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">LLM output is: <span class="nv">summary</span><span class="o">=</span><span class="s2">&#34;Salesforce to Snowflake sync failing since yesterday afternoon with &#39;authentication failed&#39; error in run log. Customer rotated their Salesforce admin password on Tuesday, which may be the cause. This feeds their revenue dashboard and is urgent.&#34;</span> <span class="nv">category</span><span class="o">=</span><span class="s1">&#39;bug&#39;</span> <span class="nv">product_area</span><span class="o">=</span><span class="s1">&#39;connectors&#39;</span> <span class="nv">severity</span><span class="o">=</span><span class="s1">&#39;high&#39;</span> <span class="nv">sentiment</span><span class="o">=</span><span class="s1">&#39;neutral&#39;</span> <span class="nv">contains_secret_or_pii</span><span class="o">=</span>True <span class="nv">affected_entities</span><span class="o">=[</span><span class="s1">&#39;Salesforce connector&#39;</span>, <span class="s1">&#39;Snowflake&#39;</span>, <span class="s1">&#39;northwind-analytics&#39;</span>, <span class="s1">&#39;nwa-prod&#39;</span><span class="o">]</span> <span class="nv">is_actionable</span><span class="o">=</span><span class="s1">&#39;true&#39;</span> <span class="nv">missing_info</span><span class="o">=[</span><span class="s1">&#39;Confirmation of whether Salesforce credentials in the connector were updated after the password rotation&#39;</span>, <span class="s1">&#39;Specific failing sync/job ID&#39;</span>, <span class="s1">&#39;Timestamp of the last successful sync&#39;</span><span class="o">]</span> <span class="nv">confidence</span><span class="o">=</span>0.86 <span class="nv">needs_human</span><span class="o">=</span>False
+</span></span><span class="line"><span class="cl"><span class="sb">``</span>
+</span></span></code></pre></div></article>
+
+        </main><footer id="footer">
+    
+</footer>
+</body>
+</html>

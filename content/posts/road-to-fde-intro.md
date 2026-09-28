@@ -1,6 +1,6 @@
 +++
 date = '2026-07-21T16:10:43-04:00'
-draft = false
+draft = true
 title = 'Road to Forward Deployed Engineer -- An Intro'
 +++
 
